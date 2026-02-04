@@ -21,3 +21,4 @@ module decoder_test;
     $monitor("time=%0t|x1=%b x0=%b|y=%b",$time,x1,x0,y);
   end
 endmodule
+//enable//
