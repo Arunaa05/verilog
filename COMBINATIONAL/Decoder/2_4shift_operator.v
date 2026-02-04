@@ -3,6 +3,9 @@ module decoder(input x1, x0,output [3:0] y);
   assign y = 4'b0001 << {x1, x0};
 
 endmodule
+
+
+
 // testbench
 
 module decoder_test;
