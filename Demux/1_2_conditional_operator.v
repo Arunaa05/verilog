@@ -1,6 +1,8 @@
 module demux1_2(input x,s,output reg y0,y1);
   assign y0=s?1'b0:x;
   assign y1=s?x:1'b0;
+  //assign y = s ? {x, 1'b0} : {1'b0, x};
+
 endmodule
 
 //testbench
