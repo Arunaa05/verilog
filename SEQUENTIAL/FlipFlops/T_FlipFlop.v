@@ -1,12 +1,14 @@
 module t_ff( 
   input t,clk,
-  output reg q,
+  output reg q=0,
   output reg qbar
 );
-  always@(POsedge clk)begin
-    if(t==1)
-      q<=~t;
-    else
-      q<=q;
+  assign qbar = ~q;
+  always@(posedge clk)begin
+    case(t)
+      1'b0:q<=q;
+      1'b1:q<=~q;
+      default:q<=q;
+    endcase
   end
 endmodule
