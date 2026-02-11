@@ -1,10 +1,10 @@
 module d_ff(
   input d,clk,
   output reg q,
-  output qbar
+  output reg qbar
 );
   always@(posedge clk)begin
      q<=d;
-     qbar<=~q;
+     qbar<=~d;
   end
 endmodule
