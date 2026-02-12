@@ -1,4 +1,8 @@
-module jk_ff(input j,k,clk,output q,qbar);
+module jk_ff(
+  input j,k,clk,
+  output reg q,
+  output qbar
+);
   assign qbar=~q;
   always@(posedge clk)begin
     case({j,k})
