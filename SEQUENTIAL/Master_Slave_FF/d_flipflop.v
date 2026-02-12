@@ -1,10 +1,16 @@
-module d_ms(
+module d_master_slave(
   input d,clk,
-  output qs,qn
+  output reg qs,
+  output qsbar,
+  output reg qm
 );
-  wire qm;
-  not(clk,~clk);
-  assign qm=d;
-  assign qs=qm;
-  assign qn = ~qs;
+  always@(clk or d)begin
+    if(clk)
+      qm<=d;
+  end
+  always@(clk or qm)begin
+    if(!clk)
+      qs<=qm;
+  end
+  assign qsbar = ~qs; 
 endmodule
