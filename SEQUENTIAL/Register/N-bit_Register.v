@@ -5,8 +5,8 @@ module N_bit_register #(parameter N=8)(
 );
   always@(posedge clk)begin
     if(rst)
-      q<=d;
+      q<=0;
     else
-      q<=1'b0;
+      q<=d;
   end
 endmodule
