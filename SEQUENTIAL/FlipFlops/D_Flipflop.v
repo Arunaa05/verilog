@@ -1,10 +1,11 @@
 module d_ff(
-  input d,clk,
-  output reg q,
-  output reg qbar
+  input d,clk,rstn,
+  output reg q
 );
-  always@(posedge clk)begin
-     q<=d;
-     qbar<=~d;
+  always@(posedge clk or negedge rstn)begin
+    if(rstn)
+       q<=d;
+    else
+       q<=0;
   end
 endmodule
