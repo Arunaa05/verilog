@@ -1,18 +1,18 @@
 module d_ff_tb;
-  reg d,clk;
-  wire q,qbar;
-  d_ff DUT(.d(d),.clk(clk),.q(q),.qbar(qbar));
+  reg d,clk,rstn;
+  wire q;
+  d_ff DUT(.*);
   initial 
      clk=0;
   always #5 clk=~clk;
   initial begin
-    d=0;
-    #10 d=1; 
+    rstn=0;d=0;
+    #10 rstn=1;d=1; 
     #20; $finish;
   end
   initial begin
-    $monitor("time=%0t |clk=%b  d=%b| q=%b qbar=%b",$time,clk,d,q,qbar);
+    $monitor("time=%0t |clk=%b  d=%b rstn=%b | q=%b",$time,clk,d,rstn,q);
     $dumpfile("d_ff.vcd");
-    $dumpvars;
+    $dumpvars(1,d_ff_tb);
   end
 endmodule
