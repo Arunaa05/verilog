@@ -1,0 +1,29 @@
+module half_adder(
+  input a, b,
+  output reg sum, 
+  output reg carry
+);
+  always@(*)begin
+       sum = a ^ b;
+       carry = a & b;
+  end
+endmodule
+module full_adder(
+  input a,b,cin,
+  output reg sum,
+  output reg carry
+);
+  wire sum1,carry1,carry2;
+  half_adder HA1 (
+  .a(a),
+  .b(b),
+  .sum(sum1),
+  .carry(carry1)
+);
+  half_adder HA2 (
+  .a(sum1),
+  .b(cin),
+  .sum(sum),
+  .carry(carry2)
+);
+endmodule
