@@ -1,10 +1,8 @@
 module adder_4bit(
   input [3:0]a,b,
-  input cin,
-  output reg [3:0]sum,
-  output reg cout
+  output reg [3:0]sum
 );
   always@(*)begin
-    {cout,sum}=a+b+cin;
+    sum=a+b;
   end
 endmodule
