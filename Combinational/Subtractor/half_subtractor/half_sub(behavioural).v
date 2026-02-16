@@ -4,7 +4,7 @@ module half_sub(
   output reg borrow
 );
   always@(*)begin
-  assign diff=a^b;
-    assign borrow=(~a)&b;
+      diff = a^b;
+      borrow = (~a)&b;
   end
 endmodule
