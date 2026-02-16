@@ -26,4 +26,5 @@ module full_adder(
   .sum(sum),
   .carry(carry2)
 );
+  assign carry = carry1|carry2;
 endmodule
