@@ -1,7 +1,5 @@
 module dff_tb;
-reg d;
-reg clk;
-reg rst;
+reg d,clk;
 wire q;  
   d_ff dut(.*);
   always #10 clk=~clk;
