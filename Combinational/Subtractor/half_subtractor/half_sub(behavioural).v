@@ -1,10 +1,10 @@
 module half_sub(
   input a,b,
-  output diff,
-  output borrow
+  output reg diff,
+  output reg borrow
 );
-  wire c;
-  assign c=~a;
+  always@(*)begin
   assign diff=a^b;
-  assign borrow=c&b;
+    assign borrow=(~a)&b;
+  end
 endmodule
