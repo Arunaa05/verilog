@@ -1,4 +1,4 @@
-module piso_dff_tb();
+module piso_tb();
   reg[3:0]din;
   reg clk,rst,load;
   wire dout; 
