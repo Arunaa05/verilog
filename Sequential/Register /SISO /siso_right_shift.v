@@ -9,7 +9,7 @@ module siso(
       dout<=1'b0;
     end
     else begin
-      q<={din,[3:1]q};
+      q<={din,q[3:1]};
       dout<=q[0];
   end
   end
