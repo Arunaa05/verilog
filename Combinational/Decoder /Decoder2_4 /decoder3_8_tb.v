@@ -7,8 +7,7 @@ module decoder_3to8_tb;
     );
 
     initial begin
-        $display("Time   in   out");
-        $monitor("%0t    %b   %b", $time, in, out);
+        $monitor("Time=%0t | in=%b | out=%b", $time, in, out);
 
         
         in = 3'b000; #10;
