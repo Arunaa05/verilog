@@ -1,3 +1,6 @@
+***this code is only for simulation***
+
+
 module half_adder(
   input a, b,
   output sum, cout
