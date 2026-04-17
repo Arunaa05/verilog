@@ -1,15 +1,36 @@
 module sum(
   input [3:0]x,y,
-  output [4:0]c
+  output reg [4:0]z
 );
   
-  function [4:0]add;
+   task add;
     input [3:0]a,b;
+     output [4:0]c;
     begin
-      add=a+b;
+      c=a+b;
     end
-    endfunction
-  
-  assign c=add(x,y);
-  
+   endtask
+  always@(*)
+    begin
+      add(x,y,z);
+    end
 endmodule
+
+//testbench
+module tb;
+  reg [3:0]x,y;
+  wire [4:0]z;
+  sum dut(.x(x),.y(y),.z(z));
+  initial 
+    begin
+      x=2;y=5;
+      $finish;
+      
+    end
+  initial 
+    $monitor("z:%0d",z);
+endmodule
+
+/*output 
+z:7
+*/
