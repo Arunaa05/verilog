@@ -1,4 +1,4 @@
-module fsm(
+module fsm_div_by_5(
   input clk,
   input rst,
   input x,
