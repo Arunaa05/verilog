@@ -1,28 +1,19 @@
-module read_handler #(parameter N=3) (
-  input r_clk, r_en,r_rst_n,
-  input [N:0] wptr_s, 
-  output reg empty, 
-  output reg [N:0]rptr_b, rptr_g
-);
-  
-wire [N:0]rptr_b_next, rptr_g_next;
-wire r_empty;
-
-assign rptr_b_next = rptr_b + (r_en & !empty);
-assign rptr_g_next = rptr_b_next ^ (rptr_b_next >> 1);
-assign r_empty = (rptr_g_next == wptr_s);
-
-always @(posedge r_clk or negedge r_rst_n)begin
-  if(!r_rst_n) begin
-    empty <=1;
-    rptr_b <=0;
-    rptr_g <=0;
-  end
-  else begin
-    empty <= r_empty;
-    rptr_b <= rptr_b_next;
-    rptr_g <= rptr_g_next;
-  end
+module rptr_handler # (parameter ptr_width = 4,depth = 8)
+        (input rclk,rrst,re,
+         input [ptr_width-1:0] sync_gwptr,
+         output reg [ptr_width-1:0] b_rptr,
+	 output [ptr_width-1:0]g_rptr,
+         output empty);
+wire [ptr_width-1:0] nxtb_rptr,nxtg_rptr;
+assign nxtb_rptr = b_rptr + (re & !empty);
+assign nxtg_rptr = (nxtb_rptr >> 1)^nxtb_rptr;
+always @(posedge rclk or negedge rrst)
+begin
+if(!rrst)
+        b_rptr <= 0;
+else if (re && !empty)
+        b_rptr <= nxtb_rptr;
 end
-  
+assign g_rptr = (b_rptr >> 1)^b_rptr;
+assign empty = (sync_gwptr == g_rptr);
 endmodule
