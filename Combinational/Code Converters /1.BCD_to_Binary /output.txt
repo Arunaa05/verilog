@@ -1,0 +1,5 @@
+BCD = 00100101 (25), Binary = 25 (0011001)
+BCD = 00011000 (18), Binary = 18 (0010010)
+BCD = 01001001 (49), Binary = 49 (0110001)
+BCD = 10011001 (99), Binary = 99 (1100011)
+testbench.sv:20: $finish called at 40 (1s)
