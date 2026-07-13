@@ -1,28 +1,19 @@
-module write_handler #(parameter depth=3)(
-  input w_clk,w_rst_n,w_en,
-  input [depth:0]rptr_s, 
-  output reg [depth:0]wptr_b,wptr_g,
-  output reg full
-);
-
-wire [depth:0]wptr_b_next , wptr_g_next;
-wire wfull;
-
-assign wptr_b_next = wptr_b +(w_en & !full);
-assign wptr_g_next = wptr_b_next ^ (wptr_b_next >>1);
-assign wfull = (wptr_g_next == {~rptr_s[depth:depth-1], rptr_s[depth-2:0]});
-
-always @(posedge w_clk or negedge w_rst_n)begin
-  if(!w_rst_n) begin
-    full <=0;
-    wptr_b <=0;
-    wptr_g <=0;
-  end
-  else begin
-    wptr_b <= wptr_b_next;
-    wptr_g <= wptr_g_next;
-    full <= wfull;
-  end
+module wptr_handler # (parameter ptr_width = 4,depth = 8)
+	(input wclk,wrst,we,
+	 input [ptr_width-1:0] sync_grptr,
+	 output reg [ptr_width-1:0] b_wptr,
+	 output [ptr_width-1:0] g_wptr,
+	 output full);
+ wire [ptr_width-1:0] nxtb_wptr,nxtg_wptr;
+ assign  nxtb_wptr = b_wptr + (we & !full);
+assign  nxtg_wptr = (nxtb_wptr >> 1)^nxtb_wptr;
+always @(posedge wclk or negedge wrst)
+begin
+if(!wrst)
+	b_wptr <= 0;
+else if ( we && !full) 
+	b_wptr <= nxtb_wptr;
 end
-
+assign g_wptr = (b_wptr >> 1)^b_wptr;
+assign full = (g_wptr == {~sync_grptr[ptr_width-1:ptr_width-2],sync_grptr[ptr_width-3:0]});
 endmodule
